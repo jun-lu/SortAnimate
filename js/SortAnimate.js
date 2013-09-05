@@ -49,6 +49,14 @@ SortAnimate.prototype = {
 		this.ui.columns[index].style.height = this.getHeight( number )+"%";
 		this.ui.columns[index].title = number;
 	},
+	uiHighlightOne:function(index1, index2){
+		this.ui.columns[index1].className += " highlight";
+		this.ui.columns[index2].className += " highlight";
+	},
+	uiUnHighlightOne:function(index1, index2){
+		this.ui.columns[index1].className = this.ui.columns[index1].className.replace(" highlight", "");
+		this.ui.columns[index2].className = this.ui.columns[index2].className.replace(" highlight", "");
+	},
 	//激活第 index 个元素
 	uiActiveOne:function( index ){
 		this.ui.columns[index].className += " focus";
@@ -89,6 +97,9 @@ SortAnimate.prototype = {
 		});
 	},
 	exchange:function(index1, index2){
+		this.highlight(index1, index2);
+		this.unHighlight(index1, index2);
+		
 		this.animte.push({
 			type:"uiExchange",
 			data:[index1, index2]
@@ -104,6 +115,18 @@ SortAnimate.prototype = {
 		this.animte.push({
 			type:"uiBlurFragment",
 			data:[startIndex, endIndex]
+		});
+	},
+	highlight:function( index1, index2 ){
+		this.animte.push({
+			type:"uiHighlightOne",
+			data:[index1, index2]
+		});
+	},
+	unHighlight:function(index1, index2){
+		this.animte.push({
+			type:"uiUnHighlightOne",
+			data:[index1, index2]
 		});
 	},
 	changeSpeed:function( speed ){
