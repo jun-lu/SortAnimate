@@ -34,8 +34,10 @@
 			
 			
 		</div>
-		<div class="sort-animate-box" id="sortAnimateBox" style="height:100px;"></div>
-		
+		<div>
+			<div class="sort-animate-box" id="sortAnimateBox" style="height:100px;"></div>
+			<div id="sortText"></div>
+		</div>
 		
 	</div>
 	<script type="text/javascript">
@@ -73,15 +75,15 @@
 		function bubbleSortStart(){
 			var arr = getArray().slice()
 			srotanimte = new SortAnimate( arr, $('sortAnimateBox') )
-			
+			$('sortText').innerHTML = "冒泡排序";
 			bubbleSort(arr, srotanimte);
-			srotanimte.play(getSpeed())
+			srotanimte.play(getSpeed());
 		}
 		
 		function quickSortStart(){
 			var arr = getArray().slice()
 			srotanimte = new SortAnimate( arr, $('sortAnimateBox') )
-			
+			$('sortText').innerHTML = "快速排序";
 			quickSort(arr, srotanimte);
 			srotanimte.play(getSpeed())
 		}
@@ -89,7 +91,7 @@
 		function insertSortStart(){
 			var arr = getArray().slice()
 			srotanimte = new SortAnimate( arr, $('sortAnimateBox') )
-			
+			$('sortText').innerHTML = "插入排序";
 			insertSort(arr, srotanimte)
 			srotanimte.play(getSpeed())
 		}
@@ -97,7 +99,7 @@
 		function shellSortStart(){
 			var arr = getArray().slice()
 			srotanimte = new SortAnimate( arr, $('sortAnimateBox') )
-			
+			$('sortText').innerHTML = "希尔排序";
 			shellSort(arr, srotanimte)
 			srotanimte.play(getSpeed())
 		}
@@ -105,7 +107,7 @@
 		function selectionSortStart(){
 			var arr = getArray().slice()
 			srotanimte = new SortAnimate( arr, $('sortAnimateBox') )
-			
+			$('sortText').innerHTML = "选择排序";
 			selectionSort(arr, srotanimte)
 			srotanimte.play(getSpeed())
 		}
@@ -114,7 +116,7 @@
 		function cocktailSortStart(){
 			var arr = getArray().slice()
 			srotanimte = new SortAnimate( arr, $('sortAnimateBox') )
-			
+			$('sortText').innerHTML = "鸡尾酒排序";
 			cocktailSort(arr, srotanimte);
 			srotanimte.play(getSpeed())
 		}
@@ -122,7 +124,7 @@
 		function oddEvenSortStart(){
 			var arr = getArray().slice()
 			srotanimte = new SortAnimate( arr, $('sortAnimateBox') )
-			
+			$('sortText').innerHTML = "奇偶排序";
 			oddEvenSort(arr, srotanimte);
 			srotanimte.play(getSpeed());
 		}
@@ -223,10 +225,10 @@
 				len = array.length;
 			
 			for(; i < len; i++){
-				srotanimte.activeOne(i);
+				//srotanimte.activeOne(i);
 				step = j = i;
 				key = array[j];
-				
+				srotanimte.activeFragment(0, i);
 				while(--j > -1){
 					srotanimte.activeOne(j);
 					if(array[j] > key){
@@ -239,8 +241,9 @@
 					}
 					srotanimte.blurOne(j);
 				}
-				srotanimte.blurOne(i);
+				//srotanimte.blurOne(i);
 				array[j+1] = key;
+				srotanimte.blurFragment(0, i);
 			}
 			
 			return array;
