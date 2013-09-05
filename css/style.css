@@ -1,6 +1,6 @@
-.column{width:5px;height:100%;background:#d7d7d7;display:inline-block;margin:0 1px;}
+.column{width:7px;height:100%;background:#cccccc;display:inline-block;margin:0 1px;}
 .column:hover{background:#f30;}
-.active{background:#4abae0}
-.focus{background:#ef9c94;}
-.highlight{background:#da3939}
+.active{background:#888888}
+.focus{background:#ffcccc;}
+.highlight{background:#ff6666}
 		

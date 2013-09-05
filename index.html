@@ -310,6 +310,7 @@
 				
 				item = array[i];
 				index = i;
+				
 				srotanimte.activeOne(i);
 				//寻找最小的数位置
 				for(j=i+1; j<len;j++){
@@ -352,7 +353,7 @@
 				ischange = false;
 				item = array[i];
 				index = i;
-				
+				srotanimte.activeFragment(i, j);
 				for(k=i; k<j; k++){
 					srotanimte.activeOne(k);
 					if(item > array[k]){
@@ -367,11 +368,13 @@
 					index = k;
 					srotanimte.blurOne(k);
 				}
+				srotanimte.blurFragment(i, j);
 				j--;
 				
 				//寻找最小
 				item = array[j];
 				index = j;
+				srotanimte.activeFragment(i-1, j);
 				for(k=j; k>i-1; k--){
 					srotanimte.activeOne(k);
 					if(item < array[k]){
@@ -386,7 +389,7 @@
 					index = k;
 					srotanimte.blurOne(k);
 				}
-				
+				srotanimte.blurFragment(i-1, j);
 				i++;
 				//没有任何交换跳出
 				if( ischange == false ){

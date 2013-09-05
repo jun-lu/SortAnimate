@@ -106,12 +106,14 @@ SortAnimate.prototype = {
 		});
 	},
 	activeFragment:function(startIndex, endIndex){
+		startIndex = startIndex < 0 ? 0 : startIndex; 
 		this.animte.push({
 			type:"uiActiveFragment",
 			data:[startIndex, endIndex]
 		});
 	},
 	blurFragment:function(startIndex, endIndex){
+		startIndex = startIndex < 0 ? 0 : startIndex;
 		this.animte.push({
 			type:"uiBlurFragment",
 			data:[startIndex, endIndex]
