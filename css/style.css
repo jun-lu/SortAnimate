@@ -1,0 +1,5 @@
+.column{width:3px;height:100%;background:#4abae0;display:inline-block;margin:0 1px;}
+.column:hover{background:#f30;}
+.active{background:#d7d7d7}
+.focus{background:#f30;}
+		
