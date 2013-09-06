@@ -1,0 +1,189 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<title>排序算法动画演示</title>
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+	<div style="margin:50px;">
+		<h1>排序算法动画演示 <small><a href="https://github.com/jun-lu/SortAnimate">view Github</a></small></h1>
+		
+		<div>
+			<p>
+			动画速度：<input value="170" max="200" min="1" id="speed" type="range" onchange="srotanimte && srotanimte.changeSpeed(200-this.value)" >
+			</p>
+			<p>
+			数组长度：<input value="50" width="50" id="arrlen"> <input type="button" value="随即数组" onclick="arrayText(document.getElementById('arrlen').value)" class="btn" />
+			</p>
+			<p>
+			待排序数组：<input id="arrayText" value="[43,27,39,17,32,21,14,42,22,15,18,12,46,1,16,10,4,29,3,23,24,49,0,5,36,13,34,6,19,47,9,33,31,20,28,44,38,37,41,40,8,35,30,7,11,45,2,25,48,26]" style="width:80%;">
+			</p>
+			<p></p>
+		</div>
+		<div>
+		
+			<input type="button" value="冒泡排序" onclick="playSortAnimate(sortMethodMap.bubble)" class="btn" />
+			<input type="button" value="快速排序" onclick="playSortAnimate(sortMethodMap.quick)" class="btn" />
+			<input type="button" value="插入排序" onclick="playSortAnimate(sortMethodMap.insert)" class="btn" />
+			<input type="button" value="希尔排序" onclick="playSortAnimate(sortMethodMap.shell)" class="btn" />
+			<input type="button" value="选择排序" onclick="playSortAnimate(sortMethodMap.selection)" class="btn" />
+			<input type="button" value="鸡尾酒排序" onclick="playSortAnimate(sortMethodMap.cocktail)" class="btn" />
+			<input type="button" value="奇偶排序" onclick="playSortAnimate(sortMethodMap.oddEven)" class="btn" />
+			<input type="button" value="梳排序" onclick="playSortAnimate(sortMethodMap.comb)" class="btn" />
+			
+			
+		</div>
+		<div>
+			<div class="sort-animate-box" id="sortAnimateBox" style="height:100px;"></div>
+			<div id="sortText"></div>
+		</div>
+		
+	</div>
+	<script type="text/javascript" src="js/sea.js"></script>
+	<script type="text/javascript">
+		seajs.config({
+			charset: 'utf-8',
+		});
+		
+		seajs.use(['SortAnimate','bubble','quick','insert','shell','selection','cocktail','oddEven','comb'], function(){
+			
+			
+			var srotanimte = null;
+		
+			window.sortMethodMap = {
+				bubble:{
+					sort:"bubbleSort",
+					animateSort:"bubbleSortAnimate",
+					text:"冒泡排序"
+				},
+				quick:{
+					sort:"quickSort",
+					animateSort:"quickSortAnimate",
+					text:"快速排序"
+				},
+				insert:{
+					sort:"insertSort",
+					animateSort:"insertSortAnimate",
+					text:"插入排序"
+				},
+				shell:{
+					sort:"shellSort",
+					animateSort:"shellSortAnimate",
+					text:"希尔排序"
+				},
+				selection:{
+					sort:"selectionSort",
+					animateSort:"selectionSortAnimate",
+					text:"选择排序"
+				},
+				cocktail:{
+					sort:"cocktailSort",
+					animateSort:"cocktailSortAnimate",
+					text:"鸡尾酒排序"
+				},
+				oddEven:{
+					sort:"oddEvenSort",
+					animateSort:"oddEvenSortAnimate",
+					text:"奇偶酒排序"
+				},
+				comb:{
+					sort:"combSort",
+					animateSort:"combSortAnimate",
+					text:"梳排序"
+				}
+			};
+			window.playSortAnimate = function( key ){
+				var arr = getArray();
+				srotanimte = new SortAnimate( arr, $('sortAnimateBox') );
+				$('sortText').innerHTML = key.text;
+				window[key.animateSort](arr, srotanimte);
+				srotanimte.play(getSpeed());
+			}	
+			
+			function $(id){
+				return document.getElementById(id);//.value;
+			}
+			
+			function getSpeed(){
+				return 200-document.getElementById('speed').value;
+			}
+			
+			function randomArrayText( len ){
+				len = len || 50;
+				var arr = [];
+				for(var i=0; i<len;i++){
+					arr.push( i );
+				}
+				arr.sort(function(){
+					return Math.random() - 0.5;
+				});
+				document.getElementById( "arrayText" ).value = "["+ arr.toString() +"]";
+			};
+			
+			function getArray(){
+				var text = document.getElementById( "arrayText" ).value;
+				try{
+					return JSON.parse( text );
+				}catch(e){
+					alert("数组有错误")
+				}
+			}
+			
+			
+			
+			
+			//正确性测试
+			function test(){
+				var arrays = [
+					[2,0,1,4,3,5,7,8,6,9],
+					[2,4,6,0,1,3,8,5,7,9],
+					[0,6,2,4,3,1,8,5,7,9],
+					[5,2,0,1,6,7,8,3,4,9],
+					[0,6,1,2,3,7,8,5,4,9],
+					[0,2,3,8,5,1,7,6,4,9],
+					[0,4,1,2,3,6,7,8,9,5],
+					[0,1],
+					[1,0],
+					[0],
+					[1],
+					[]
+				];
+				
+				console.log("排序正确性测试");
+				for(var i=0; i<arrays.length; i++){
+					srotanimte = new SortAnimate( arrays[i], $('sortAnimateBox') );
+					for(var key in sortMethodMap){
+						console.log(sortMethodMap[key].text, window[sortMethodMap[key].sort](arrays[i]));
+						console.log(sortMethodMap[key].text, window[sortMethodMap[key].animateSort](arrays[i], srotanimte));
+					}
+				}
+				console.log("结束");
+			}
+			//console.log("选择:",cocktailSort([9,1,3,2,4,6,8,5,0,7], srotanimte));
+			test();
+		
+		
+			
+			
+			
+		});
+	</script>
+
+	<script type="text/javascript">
+		//chat.js
+		var __vchat_config = {   
+			domain:"https://github.com/jun-lu/SortAnimate",
+			topic:"排序算法动画演示",  
+			des: "排序算法动画演示,http://jun-lu.github.io/SortAnimate/index.html"  
+		};   
+		   
+		;;(function(){   
+			var chat = document.createElement("script");chat.type = 'text/javascript';chat.async = true;   
+			chat.src = "http://vchat.co/js/chat.min.js";   
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(chat, s);    
+		})();
+	</script>
+</div>
+</body>
+</html>
