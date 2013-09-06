@@ -31,6 +31,7 @@
 			<input type="button" value="选择排序" onclick="selectionSortStart()" class="btn" />
 			<input type="button" value="鸡尾酒排序" onclick="cocktailSortStart()" class="btn" />
 			<input type="button" value="奇偶排序" onclick="oddEvenSortStart()" class="btn" />
+			<input type="button" value="梳排序" onclick="combSortStart()" class="btn" />
 			
 			
 		</div>
@@ -127,6 +128,15 @@
 			$('sortText').innerHTML = "奇偶排序";
 			oddEvenSort(arr, srotanimte);
 			srotanimte.play(getSpeed());
+		}
+		
+		function combSortStart(){
+			var arr = getArray().slice()
+			srotanimte = new SortAnimate( arr, $('sortAnimateBox') )
+			$('sortText').innerHTML = "梳排序";
+			combSort(arr, srotanimte);
+			srotanimte.play(getSpeed());
+			
 		}
 		
 		//冒泡
@@ -253,7 +263,7 @@
 		function shellSort(array, srotanimte){
 
 			
-			var stepArr = [1750, 701, 301, 132, 57, 23, 10, 4, 1]; // reverse() 在维基上看到这个最优的步长 较小数组
+			var stepArr = [1031612713, 217378076, 45806244, 9651787, 2034035, 428481, 90358, 19001, 4025, 1750, 836, 701, 301, 132, 57, 23, 10, 4, 1]; // reverse() 在维基上看到这个最优的步长 较小数组
 			var i = 0;
 			var stepArrLength = stepArr.length;
 			var len = array.length;
@@ -447,7 +457,38 @@
 			return list;
 		}
 
-		
+		//梳排序
+		function combSort(list, srotanimte){
+			var len = list.length;
+			var gap = len;
+			var swapped = true;
+			
+			while(gap > 1 || swapped){
+				if(gap > 1){
+					gap = Math.floor(gap / 1.3); //获取排序间隔
+				}
+				
+				var i = 0;
+				swapped = false;
+				while(i + gap < len){
+					srotanimte.activeOne(i);
+					srotanimte.activeOne(i + gap);
+					if(list[i] - list[i + gap] > 0){ //如果为正数,交换位置
+						var tmp = list[i];
+						list[i] = list[i + gap];
+						list[i + gap] = tmp;
+						swapped = true;
+						srotanimte.exchange(i, i + gap);
+					}
+					srotanimte.blurOne(i);
+					srotanimte.blurOne(i + gap);
+					i++;
+				}				
+			}
+			
+			return list;
+		}
+				
 		//正确性测试
 		function test(){
 			var arrays = [
@@ -475,6 +516,7 @@
 				console.log("选择:",selectionSort(arrays[i], srotanimte));
 				console.log("鸡尾酒:",cocktailSort(arrays[i], srotanimte));
 				console.log("奇偶:",oddEvenSort(arrays[i], srotanimte));
+				console.log("梳排序:",combSort(arrays[i], srotanimte));
 				
 			}
 			console.log("结束");
