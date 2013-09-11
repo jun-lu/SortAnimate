@@ -14,7 +14,7 @@
 			动画速度：<input value="170" max="200" min="1" id="speed" type="range" onchange="srotanimte && srotanimte.changeSpeed(200-this.value)" >
 			</p>
 			<p>
-			数组长度：<input value="50" width="50" id="arrlen"> <input type="button" value="随即数组" onclick="arrayText(document.getElementById('arrlen').value)" class="btn" />
+			数组长度：<input value="50" width="50" id="arrlen"> <input type="button" value="随即数组" onclick="randomArrayText(document.getElementById('arrlen').value)" class="btn" />
 			</p>
 			<p>
 			待排序数组：<input id="arrayText" value="[43,27,39,17,32,21,14,42,22,15,18,12,46,1,16,10,4,29,3,23,24,49,0,5,36,13,34,6,19,47,9,33,31,20,28,44,38,37,41,40,8,35,30,7,11,45,2,25,48,26]" style="width:80%;">
@@ -109,7 +109,7 @@
 				return 200-document.getElementById('speed').value;
 			}
 			
-			function randomArrayText( len ){
+			window.randomArrayText = function ( len ){
 				len = len || 50;
 				var arr = [];
 				for(var i=0; i<len;i++){
