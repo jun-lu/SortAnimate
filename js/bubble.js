@@ -1,16 +1,15 @@
 /**
 	冒泡排序
 */
-function bubbleSort(array){
-	var i = 0, len = array.length,
-		j, d;
-	for(; i<len; i++){
-		for(j=0; j<len; j++){
-			if(array[i] < array[j]){
+function bubbleSort(array, srotanimte){
+	var len = array.length,i,j, d;
+	for(i=len;i--;){
+		for(j=0; j<i; j++){
+			var z = j+1;
+			if(array[j] > array[z]){
 				d = array[j];
-				array[j] = array[i];
-				array[i] = d;
-			
+				array[j] = array[z];
+				array[z] = d;
 			}
 		}
 	}
@@ -18,21 +17,21 @@ function bubbleSort(array){
 };
 
 function bubbleSortAnimate(array, srotanimte){
-	var i = 0, len = array.length,
-		j, d;
-	for(; i<len; i++){
-		srotanimte.activeOne(i);
-		for(j=0; j<len; j++){
+	var len = array.length,i,j, d;
+	srotanimte.activeFragment(0,len);
+	for(i=len;i--;){
+		for(j=0; j<i; j++){
+			var z = j+1;
 			srotanimte.activeOne(j);
-			if(array[i] < array[j]){
+			if(array[j] > array[z]){
 				d = array[j];
-				array[j] = array[i];
-				array[i] = d;
-				srotanimte.exchange(i, j);
+				array[j] = array[z];
+				array[z] = d;
+				srotanimte.exchange(j, z);
 			}
 			srotanimte.blurOne(j);
 		}
-		srotanimte.blurOne(i);
+		srotanimte.blurFragment(j,len);
 	}
 	return array;
 };
