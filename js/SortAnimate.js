@@ -29,6 +29,12 @@ SortAnimate.prototype = {
 		this.ui.columns = this.ui.wrapper.getElementsByClassName("column");
 
 	},
+	sync:function(array){
+		this.array=array;
+		for(var i = 0; i < array.length; i++){
+			this.uiSetHeight(i);
+		}
+	},
 	getHeight:function( number ){
 		return parseInt(number/this.max*100);
 	},
@@ -104,6 +110,13 @@ SortAnimate.prototype = {
 			type:"uiExchange",
 			data:[index1, index2]
 		});
+	},
+	onsync:function(arr){
+		var arr = arr.slice(0);
+		this.animte.push({
+			type:"sync",
+			data:[arr]
+		})
 	},
 	activeFragment:function(startIndex, endIndex){
 		startIndex = startIndex < 0 ? 0 : startIndex; 
