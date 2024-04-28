@@ -6,15 +6,15 @@
   <title>Sortanimate by jun-lu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen" />
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css" />
+  <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css" /> -->
   <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
   <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen" />
-  <link crossorigin="anonymous"
+  <!-- <link crossorigin="anonymous"
     href="https://assets-cdn.github.com/assets/frameworks-4ba00b1aa0227e4b7a7961544c3b7938afb2720757a471735991ec4475c829e0.css"
     integrity="sha256-S6ALGqAifkt6eWFUTDt5OK+ycgdXpHFzWZHsRHXIKeA=" media="all" rel="stylesheet" />
   <link crossorigin="anonymous"
     href="https://assets-cdn.github.com/assets/github-81684fd7510dbd0631cf199316b86c30d3741f8600001e7998ec8ec766d6423c.css"
-    integrity="sha256-gWhP11ENvQYxzxmTFrhsMNN0H4YAAB55mOyOx2bWQjw=" media="all" rel="stylesheet" />
+    integrity="sha256-gWhP11ENvQYxzxmTFrhsMNN0H4YAAB55mOyOx2bWQjw=" media="all" rel="stylesheet" /> -->
   <style type="text/css">
     .center {
       text-align: center;
@@ -41,12 +41,19 @@
       background: #cccccc;
       display: inline-block;
       margin: 0 1px;
-      float: none;
       padding: 0;
+      position: relative;
     }
 
     .column:hover {
       background: #f30;
+    }
+
+    .column .text {
+      font-size: 12px;
+      position: absolute;
+      left: 3px;
+      bottom: 0;
     }
 
     .active {
